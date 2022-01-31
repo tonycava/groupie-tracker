@@ -8,6 +8,18 @@ import (
 	"os"
 )
 
+type API struct {
+	Artists   string `json:"artists"`
+	Locations string `json:"locations"`
+	Dates     string `json:"dates"`
+	Relation  string `json:"relation"`
+}
+
+type Artist struct {
+	Name    string   `json:"name"`
+	Members []string `json:"members"`
+}
+
 type Groupe struct {
 	Id           int      `json:"id"`
 	Image        string   `json:"image"`
@@ -22,14 +34,7 @@ type Groupe struct {
 
 func main() {
 
-	GetData("https://groupietrackers.herokuapp.com/api/artists")
-	GetData("https://groupietrackers.herokuapp.com/api/artists")
-	GetData("https://groupietrackers.herokuapp.com/api/artists")
-	GetData("https://groupietrackers.herokuapp.com/api/artists")
-
-}
-
-func GetData(url string) {
+	url := "https://groupietrackers.herokuapp.com/api/artists"
 
 	resp, err := http.Get(url)
 	// handle the error if there is one
@@ -40,24 +45,23 @@ func GetData(url string) {
 	defer resp.Body.Close()
 	// reads html as a slice of bytes
 	html, err := ioutil.ReadAll(resp.Body)
+
+	var APITest []Artist
+	err = json.Unmarshal(html, &APITest)
+	fmt.Println(APITest)
+
 	if err != nil {
 		panic(err)
 	}
-	// show the HTML code as a string %s
-	fmt.Printf("%s\n", html)
 
-	ToWrite(string(html))
-}
-
-func ToWrite(url string) {
 	file, err := os.Create("save.json") // Create a json file
 
 	if err != nil {
 		return
 	}
 
-	FileData, _ := json.MarshalIndent(url, "", " ")   // Encode the json file
-	_ = ioutil.WriteFile("save.json", FileData, 0644) // Write the variable in the json file
+	FileData, _ := json.MarshalIndent(APITest, "", " ") // Encode the json file
+	_ = ioutil.WriteFile("save.json", FileData, 0644)   // Write the variable in the json file
 
 	defer file.Close()
 }
