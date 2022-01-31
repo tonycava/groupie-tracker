@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/http"
 	"os"
@@ -50,8 +49,6 @@ type Relation struct {
 
 func main() {
 	apiUrl := GetAPI()
-	fmt.Print(apiUrl)
-
 	GetData(apiUrl.Artists, "json/artist.json", "Artist")
 	GetData(apiUrl.Locations, "json/locations.json", "Locations")
 	GetData(apiUrl.Dates, "json/dates.json", "Date")
@@ -90,12 +87,12 @@ func GetData(url, path, usedStruct string) {
 		if err != nil {
 			panic(err)
 		}
-		file, err := os.Create(path) // Create a json file
+		file, err := os.Create(path)
 		if err != nil {
 			return
 		}
-		FileData, _ := json.MarshalIndent(APITest, "", " ") // Encode the json file
-		_ = ioutil.WriteFile(path, FileData, 0644)          // Write the variable in the json file
+		FileData, _ := json.MarshalIndent(APITest, "", " ")
+		_ = ioutil.WriteFile(path, FileData, 0644)
 		defer file.Close()
 
 	case "Locations":
@@ -118,12 +115,12 @@ func GetData(url, path, usedStruct string) {
 		if err != nil {
 			panic(err)
 		}
-		file, err := os.Create(path) // Create a json file
+		file, err := os.Create(path)
 		if err != nil {
 			return
 		}
-		FileData, _ := json.MarshalIndent(APITest, "", " ") // Encode the json file
-		_ = ioutil.WriteFile(path, FileData, 0644)          // Write the variable in the json file
+		FileData, _ := json.MarshalIndent(APITest, "", " ")
+		_ = ioutil.WriteFile(path, FileData, 0644)
 		defer file.Close()
 
 	case "Relation":
@@ -132,12 +129,12 @@ func GetData(url, path, usedStruct string) {
 		if err != nil {
 			panic(err)
 		}
-		file, err := os.Create(path) // Create a json file
+		file, err := os.Create(path)
 		if err != nil {
 			return
 		}
-		FileData, _ := json.MarshalIndent(APITest, "", " ") // Encode the json file
-		_ = ioutil.WriteFile(path, FileData, 0644)          // Write the variable in the json file
+		FileData, _ := json.MarshalIndent(APITest, "", " ")
+		_ = ioutil.WriteFile(path, FileData, 0644)
 		defer file.Close()
 	}
 }
