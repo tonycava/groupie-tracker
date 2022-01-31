@@ -16,11 +16,6 @@ type API struct {
 }
 
 type Artist struct {
-	Name    string   `json:"name"`
-	Members []string `json:"members"`
-}
-
-type Groupe struct {
 	Id           int      `json:"id"`
 	Image        string   `json:"image"`
 	Name         string   `json:"name"`
@@ -33,35 +28,38 @@ type Groupe struct {
 }
 
 func main() {
+	var APIconfig API
 
-	url := "https://groupietrackers.herokuapp.com/api/artists"
+	GetAPI()
 
-	resp, err := http.Get(url)
-	// handle the error if there is one
+	jsonFile, err := os.Open("API.json")
+	defer jsonFile.Close()
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	JsonReader := json.NewDecoder(jsonFile) // Decode the json file
+	err = JsonReader.Decode(&APIconfig)
+
+	/*GetAPI(APIconfig.Artists)
+	GetAPI(APIconfig.Locations)
+	GetAPI(APIconfig.Dates)
+	GetAPI(APIconfig.Locations)*/
+}
+
+func GetAPI() API {
+	resp, err := http.Get("https://groupietrackers.herokuapp.com/api")
 	if err != nil {
 		panic(err)
 	}
-	// do this now so it won't be forgotten
 	defer resp.Body.Close()
-	// reads html as a slice of bytes
+
 	html, err := ioutil.ReadAll(resp.Body)
 
-	var APITest []Artist
-	err = json.Unmarshal(html, &APITest)
-	fmt.Println(APITest)
-
+	var apiUrl API
+	err = json.Unmarshal(html, &apiUrl)
 	if err != nil {
 		panic(err)
 	}
-
-	file, err := os.Create("save.json") // Create a json file
-
-	if err != nil {
-		return
-	}
-
-	FileData, _ := json.MarshalIndent(APITest, "", " ") // Encode the json file
-	_ = ioutil.WriteFile("save.json", FileData, 0644)   // Write the variable in the json file
-
-	defer file.Close()
+	return apiUrl
 }
