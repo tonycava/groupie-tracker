@@ -1,4 +1,4 @@
-package main
+package Serveur
 
 import (
 	"encoding/json"
@@ -48,14 +48,16 @@ type Relation struct {
 	} `json:"index"`
 }
 
-func main() {
+func Main() {
 	apiUrl := GetAPI()
 	fmt.Print(apiUrl)
 
-	GetData(apiUrl.Artists, "json/artist.json", "Artist")
-	GetData(apiUrl.Locations, "json/locations.json", "Locations")
-	GetData(apiUrl.Dates, "json/dates.json", "Date")
-	GetData(apiUrl.Relation, "json/relation.json", "Relation")
+	GetData(apiUrl.Artists, "../json/artist.json", "Artist")
+	GetData(apiUrl.Locations, "../json/locations.json", "Locations")
+	GetData(apiUrl.Dates, "../json/dates.json", "Date")
+	GetData(apiUrl.Relation, "../json/relation.json", "Relation")
+
+	GroupieServer()
 }
 
 func GetAPI() API {
@@ -71,10 +73,11 @@ func GetAPI() API {
 	if err != nil {
 		panic(err)
 	}
+
 	return apiUrl
 }
 
-func GetData(url, path, usedStruct string) {
+func GetData(url, path, usedStruct string) ([]Artist, []byte) {
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -85,59 +88,65 @@ func GetData(url, path, usedStruct string) {
 
 	switch usedStruct {
 	case "Artist":
-		var APITest []Artist
-		err = json.Unmarshal(html, &APITest)
+		var apiStruct []Artist
+		err = json.Unmarshal(html, &apiStruct)
 		if err != nil {
 			panic(err)
 		}
+
 		file, err := os.Create(path) // Create a json file
 		if err != nil {
-			return
+
 		}
-		FileData, _ := json.MarshalIndent(APITest, "", " ") // Encode the json file
-		_ = ioutil.WriteFile(path, FileData, 0644)          // Write the variable in the json file
+		FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
+		_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
+
+		return apiStruct, html
+
 		defer file.Close()
 
 	case "Locations":
-		var APITest Locations
-		err = json.Unmarshal(html, &APITest)
+		var apiStruct Locations
+		err = json.Unmarshal(html, &apiStruct)
 		if err != nil {
 			panic(err)
 		}
 		file, err := os.Create(path) // Create a json file
 		if err != nil {
-			return
+			println(err)
 		}
-		FileData, _ := json.MarshalIndent(APITest, "", " ") // Encode the json file
-		_ = ioutil.WriteFile(path, FileData, 0644)          // Write the variable in the json file
+		FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
+		_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
 		defer file.Close()
 
 	case "Date":
-		var APITest Date
-		err = json.Unmarshal(html, &APITest)
+		var apiStruct Date
+		err = json.Unmarshal(html, &apiStruct)
 		if err != nil {
 			panic(err)
 		}
+
 		file, err := os.Create(path) // Create a json file
 		if err != nil {
-			return
+			println(err)
 		}
-		FileData, _ := json.MarshalIndent(APITest, "", " ") // Encode the json file
-		_ = ioutil.WriteFile(path, FileData, 0644)          // Write the variable in the json file
+		FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
+		_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
 		defer file.Close()
 
 	case "Relation":
-		var APITest Relation
-		err = json.Unmarshal(html, &APITest)
+		var apiStruct Relation
+		err = json.Unmarshal(html, &apiStruct)
 		if err != nil {
 			panic(err)
 		}
 		file, err := os.Create(path) // Create a json file
 		if err != nil {
-			return
+			println(err)
 		}
-		FileData, _ := json.MarshalIndent(APITest, "", " ") // Encode the json file
-		_ = ioutil.WriteFile(path, FileData, 0644)          // Write the variable in the json file
+		FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
+		_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
 		defer file.Close()
 	}
+	return []Artist{}, []byte{}
 }
