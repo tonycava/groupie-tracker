@@ -6,17 +6,13 @@ import (
 	"groupie-tracker/Struct"
 	"io/ioutil"
 	"net/http"
-	"os"
 )
 
 func Main() {
 	apiUrl := GetAPI()
 	fmt.Print(apiUrl)
 
-	GetData(apiUrl.Artists, "../json/artist.json", "Artist")
-	GetData(apiUrl.Locations, "../json/locations.json", "Locations")
-	GetData(apiUrl.Dates, "../json/dates.json", "Date")
-	GetData(apiUrl.Relation, "../json/relation.json", "Relation")
+	GetData(apiUrl)
 
 	GroupieServer()
 }
@@ -38,82 +34,47 @@ func GetAPI() Struct.API {
 	return apiUrl
 }
 
-func GetData(url, path, usedStruct string) ([]Struct.Artist, Struct.Locations, Struct.Date, Struct.Relation, []byte) {
-
+func getUrl(url string) []byte {
 	resp, err := http.Get(url)
 	if err != nil {
 		panic(err)
 	}
 	defer resp.Body.Close()
 	html, err := ioutil.ReadAll(resp.Body)
+	return html
+}
 
-	switch usedStruct {
-	case "Artist":
-		var apiStruct []Struct.Artist
-		err = json.Unmarshal(html, &apiStruct)
-		if err != nil {
-			panic(err)
-		}
-		if path != "" {
-			file, _ := os.Create(path) // Create a json file
+func GetData(url Struct.API) ([]Struct.Artist, Struct.Locations, Struct.Date, Struct.Relation, []byte) {
+	var html []byte
+	var err error
 
-			FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
-			_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
-			defer file.Close()
-		}
-		return apiStruct, Struct.Locations{}, Struct.Date{}, Struct.Relation{}, html
-
-	case "Locations":
-		var apiStruct Struct.Locations
-		err = json.Unmarshal(html, &apiStruct)
-		if err != nil {
-			panic(err)
-		}
-		if path != "" {
-			file, err := os.Create(path) // Create a json file
-			if err != nil {
-				println(err)
-			}
-			FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
-			_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
-			defer file.Close()
-		}
-		return []Struct.Artist{}, apiStruct, Struct.Date{}, Struct.Relation{}, html
-
-	case "Date":
-		var apiStruct Struct.Date
-		err = json.Unmarshal(html, &apiStruct)
-		if err != nil {
-			panic(err)
-		}
-		if path != "" {
-			file, err := os.Create(path) // Create a json file
-			if err != nil {
-				println(err)
-			}
-			FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
-			_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
-			defer file.Close()
-		}
-		return []Struct.Artist{}, Struct.Locations{}, apiStruct, Struct.Relation{}, html
-
-	case "Relation":
-		var apiStruct Struct.Relation
-		err = json.Unmarshal(html, &apiStruct)
-		if err != nil {
-			panic(err)
-		}
-		if path != "" {
-			file, err := os.Create(path) // Create a json file
-			if err != nil {
-				println(err)
-			}
-			FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
-			_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
-			defer file.Close()
-		}
-
-		return []Struct.Artist{}, Struct.Locations{}, Struct.Date{}, apiStruct, html
+	html = getUrl(url.Artists)
+	var apiStruct1 []Struct.Artist
+	err = json.Unmarshal(html, &apiStruct1)
+	if err != nil {
+		panic(err)
 	}
-	return []Struct.Artist{}, Struct.Locations{}, Struct.Date{}, Struct.Relation{}, []byte{}
+
+	html = getUrl(url.Locations)
+	var apiStruct2 Struct.Locations
+	err = json.Unmarshal(html, &apiStruct2)
+	if err != nil {
+		panic(err)
+	}
+
+	html = getUrl(url.Dates)
+	var apiStruct3 Struct.Date
+	err = json.Unmarshal(html, &apiStruct3)
+	if err != nil {
+		panic(err)
+	}
+
+	html = getUrl(url.Relation)
+	var apiStruct4 Struct.Relation
+	err = json.Unmarshal(html, &apiStruct4)
+	if err != nil {
+		panic(err)
+	}
+
+	return apiStruct1, apiStruct2, apiStruct3, apiStruct4, html
 }

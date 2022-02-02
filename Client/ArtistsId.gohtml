@@ -10,7 +10,10 @@
 <body>
 
 <div class="grid">
-        <p>{{.ResultId}}</p>
+    <p>{{range $artist := .}}
+            {{$artist}}
+        {{end}}
+    </p>
 </div>
 </body>
 </html>

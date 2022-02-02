@@ -5,28 +5,25 @@ import (
 	"strconv"
 )
 
-func createPage(rawArtistData []Struct.Artist, location, dates []string, relation map[string][]string) Struct.ArtistPage {
-	var artistPageToSite Struct.ArtistPage
-	artistPageToSite.Id = rawArtistData[0].Id
-	artistPageToSite.Image = rawArtistData[0].Image
-	artistPageToSite.Name = rawArtistData[0].Name
-	artistPageToSite.Members = rawArtistData[0].Members
-	artistPageToSite.CreationDate = rawArtistData[0].CreationDate
-	artistPageToSite.FirstAlbum = rawArtistData[0].FirstAlbum
-	artistPageToSite.Locations = location
-	artistPageToSite.Dates = dates
-	artistPageToSite.DateLocations = relation
+func createPage(rawArtistData []Struct.Artist, location, dates []string, relation map[string][]string) []Struct.ArtistPage {
+	artistPageToSite := make([]Struct.ArtistPage, 1)
+	artistPageToSite[0].Id = rawArtistData[0].Id
+	artistPageToSite[0].Image = rawArtistData[0].Image
+	artistPageToSite[0].Name = rawArtistData[0].Name
+	artistPageToSite[0].Members = rawArtistData[0].Members
+	artistPageToSite[0].CreationDate = rawArtistData[0].CreationDate
+	artistPageToSite[0].FirstAlbum = rawArtistData[0].FirstAlbum
+	artistPageToSite[0].Locations = location
+	artistPageToSite[0].Dates = dates
+	artistPageToSite[0].DateLocations = relation
 	return artistPageToSite
 }
 
-func Search(id string) Struct.ArtistPage {
+func Search(id string) []Struct.ArtistPage {
 
 	apiUrl := GetAPI()
 
-	artistList, _, _, _, _ := GetData(apiUrl.Artists, "", "Artist")
-	_, artistLocation, _, _, _ := GetData(apiUrl.Locations, "", "Locations")
-	_, _, artistDates, _, _ := GetData(apiUrl.Dates, "", "Date")
-	_, _, _, artistRelations, _ := GetData(apiUrl.Relation, "", "Relation")
+	artistList, artistLocation, artistDates, artistRelations, _ := GetData(apiUrl)
 
 	idInt, _ := strconv.Atoi(id)
 	var rawArtistData []Struct.Artist
@@ -43,5 +40,5 @@ func Search(id string) Struct.ArtistPage {
 		}
 	}
 
-	return Struct.ArtistPage{}
+	return []Struct.ArtistPage{}
 }

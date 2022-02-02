@@ -32,7 +32,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 
 func Artists(w http.ResponseWriter, r *http.Request) {
 	apiUrl := GetAPI()
-	result, _, _, _, _ := GetData(apiUrl.Artists, "", "Artist")
+	result, _, _, _, _ := GetData(apiUrl)
 
 	tmpl := template.Must(template.ParseFiles("Client/Mainindex.gohtml"))
 	_ = tmpl.Execute(w, result)
@@ -56,7 +56,6 @@ func ArtistsId(w http.ResponseWriter, r *http.Request) {
 
 	ResultId := Search(request)
 	fmt.Println(ResultId)
-
 	tmpl := template.Must(template.ParseFiles("Client/ArtistsId.gohtml"))
 	_ = tmpl.Execute(w, ResultId)
 
