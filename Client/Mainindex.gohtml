@@ -34,15 +34,12 @@
 
 
 <div class="grid">
-    {{range $key, $value := .Data}}
-        <img src="{{$value}}" alt="">
+    {{range $artists := .}}
+        <a href="/artist/{{$artists.Id}}">
+            <img src="{{$artists.Image}}" alt="">
+        </a>
     {{end}}
 </div>
-
-
-{{/*{{range $key, $value := .DataId}}*/}}
-{{/*    <p>{{$value}}</p>*/}}
-{{/*{{end}}*/}}
 
 </body>
 </html>

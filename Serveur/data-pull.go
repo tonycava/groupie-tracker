@@ -3,50 +3,11 @@ package Serveur
 import (
 	"encoding/json"
 	"fmt"
+	"groupie-tracker/Struct"
 	"io/ioutil"
 	"net/http"
 	"os"
 )
-
-type API struct {
-	Artists   string `json:"artists"`
-	Locations string `json:"locations"`
-	Dates     string `json:"dates"`
-	Relation  string `json:"relation"`
-}
-
-type Artist struct {
-	Id           int      `json:"id"`
-	Image        string   `json:"image"`
-	Name         string   `json:"name"`
-	Members      []string `json:"members"`
-	CreationDate int      `json:"creationDate"`
-	FirstAlbum   string   `json:"firstAlbum"`
-	Locations    string   `json:"locations"`
-	ConcertDates string   `json:"concertDates"`
-	Relations    string   `json:"relations"`
-}
-
-type Locations struct {
-	Index []struct {
-		Id        int      `json:"id"`
-		Locations []string `json:"locations"`
-	} `json:"index"`
-}
-
-type Date struct {
-	Index []struct {
-		Id   int      `json:"id"`
-		Date []string `json:"dates"`
-	}
-}
-
-type Relation struct {
-	Index []struct {
-		Id             int                 `json:"id"`
-		DatesLocations map[string][]string `json:"datesLocations"`
-	} `json:"index"`
-}
 
 func Main() {
 	apiUrl := GetAPI()
@@ -60,7 +21,7 @@ func Main() {
 	GroupieServer()
 }
 
-func GetAPI() API {
+func GetAPI() Struct.API {
 	resp, err := http.Get("https://groupietrackers.herokuapp.com/api")
 	if err != nil {
 		panic(err)
@@ -68,7 +29,7 @@ func GetAPI() API {
 	defer resp.Body.Close()
 
 	html, err := ioutil.ReadAll(resp.Body)
-	var apiUrl API
+	var apiUrl Struct.API
 	err = json.Unmarshal(html, &apiUrl)
 	if err != nil {
 		panic(err)
@@ -77,7 +38,7 @@ func GetAPI() API {
 	return apiUrl
 }
 
-func GetData(url, path, usedStruct string) ([]Artist, []byte) {
+func GetData(url, path, usedStruct string) ([]Struct.Artist, []byte) {
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -88,7 +49,7 @@ func GetData(url, path, usedStruct string) ([]Artist, []byte) {
 
 	switch usedStruct {
 	case "Artist":
-		var apiStruct []Artist
+		var apiStruct []Struct.Artist
 		err = json.Unmarshal(html, &apiStruct)
 		if err != nil {
 			panic(err)
@@ -98,6 +59,7 @@ func GetData(url, path, usedStruct string) ([]Artist, []byte) {
 		if err != nil {
 
 		}
+
 		FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
 		_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
 
@@ -106,7 +68,7 @@ func GetData(url, path, usedStruct string) ([]Artist, []byte) {
 		defer file.Close()
 
 	case "Locations":
-		var apiStruct Locations
+		var apiStruct Struct.Locations
 		err = json.Unmarshal(html, &apiStruct)
 		if err != nil {
 			panic(err)
@@ -120,7 +82,7 @@ func GetData(url, path, usedStruct string) ([]Artist, []byte) {
 		defer file.Close()
 
 	case "Date":
-		var apiStruct Date
+		var apiStruct Struct.Date
 		err = json.Unmarshal(html, &apiStruct)
 		if err != nil {
 			panic(err)
@@ -135,7 +97,7 @@ func GetData(url, path, usedStruct string) ([]Artist, []byte) {
 		defer file.Close()
 
 	case "Relation":
-		var apiStruct Relation
+		var apiStruct Struct.Relation
 		err = json.Unmarshal(html, &apiStruct)
 		if err != nil {
 			panic(err)
@@ -148,5 +110,5 @@ func GetData(url, path, usedStruct string) ([]Artist, []byte) {
 		_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
 		defer file.Close()
 	}
-	return []Artist{}, []byte{}
+	return []Struct.Artist{}, []byte{}
 }
