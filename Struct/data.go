@@ -19,6 +19,18 @@ type Artist struct {
 	Relations    string   `json:"relations"`
 }
 
+type ArtistPage struct {
+	Id            int                 `json:"id"`
+	Image         string              `json:"image"`
+	Name          string              `json:"name"`
+	Members       []string            `json:"members"`
+	CreationDate  int                 `json:"creationDate"`
+	FirstAlbum    string              `json:"firstAlbum"`
+	Locations     []string            `json:"locations"`
+	Dates         []string            `json:"dates"`
+	DateLocations map[string][]string `json:"datesLocations"`
+}
+
 type Locations struct {
 	Index []struct {
 		Id        int      `json:"id"`
@@ -30,7 +42,7 @@ type Date struct {
 	Index []struct {
 		Id   int      `json:"id"`
 		Date []string `json:"dates"`
-	}
+	} `json:"Index"`
 }
 
 type Relation struct {

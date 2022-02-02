@@ -38,7 +38,7 @@ func GetAPI() Struct.API {
 	return apiUrl
 }
 
-func GetData(url, path, usedStruct string) ([]Struct.Artist, []byte) {
+func GetData(url, path, usedStruct string) ([]Struct.Artist, Struct.Locations, Struct.Date, Struct.Relation, []byte) {
 
 	resp, err := http.Get(url)
 	if err != nil {
@@ -54,18 +54,14 @@ func GetData(url, path, usedStruct string) ([]Struct.Artist, []byte) {
 		if err != nil {
 			panic(err)
 		}
+		if path != "" {
+			file, _ := os.Create(path) // Create a json file
 
-		file, err := os.Create(path) // Create a json file
-		if err != nil {
-
+			FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
+			_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
+			defer file.Close()
 		}
-
-		FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
-		_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
-
-		return apiStruct, html
-
-		defer file.Close()
+		return apiStruct, Struct.Locations{}, Struct.Date{}, Struct.Relation{}, html
 
 	case "Locations":
 		var apiStruct Struct.Locations
@@ -73,13 +69,16 @@ func GetData(url, path, usedStruct string) ([]Struct.Artist, []byte) {
 		if err != nil {
 			panic(err)
 		}
-		file, err := os.Create(path) // Create a json file
-		if err != nil {
-			println(err)
+		if path != "" {
+			file, err := os.Create(path) // Create a json file
+			if err != nil {
+				println(err)
+			}
+			FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
+			_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
+			defer file.Close()
 		}
-		FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
-		_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
-		defer file.Close()
+		return []Struct.Artist{}, apiStruct, Struct.Date{}, Struct.Relation{}, html
 
 	case "Date":
 		var apiStruct Struct.Date
@@ -87,14 +86,16 @@ func GetData(url, path, usedStruct string) ([]Struct.Artist, []byte) {
 		if err != nil {
 			panic(err)
 		}
-
-		file, err := os.Create(path) // Create a json file
-		if err != nil {
-			println(err)
+		if path != "" {
+			file, err := os.Create(path) // Create a json file
+			if err != nil {
+				println(err)
+			}
+			FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
+			_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
+			defer file.Close()
 		}
-		FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
-		_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
-		defer file.Close()
+		return []Struct.Artist{}, Struct.Locations{}, apiStruct, Struct.Relation{}, html
 
 	case "Relation":
 		var apiStruct Struct.Relation
@@ -102,13 +103,17 @@ func GetData(url, path, usedStruct string) ([]Struct.Artist, []byte) {
 		if err != nil {
 			panic(err)
 		}
-		file, err := os.Create(path) // Create a json file
-		if err != nil {
-			println(err)
+		if path != "" {
+			file, err := os.Create(path) // Create a json file
+			if err != nil {
+				println(err)
+			}
+			FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
+			_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
+			defer file.Close()
 		}
-		FileData, _ := json.MarshalIndent(apiStruct, "", " ") // Encode the json file
-		_ = ioutil.WriteFile(path, FileData, 0644)            // Write the variable in the json file
-		defer file.Close()
+
+		return []Struct.Artist{}, Struct.Locations{}, Struct.Date{}, apiStruct, html
 	}
-	return []Struct.Artist{}, []byte{}
+	return []Struct.Artist{}, Struct.Locations{}, Struct.Date{}, Struct.Relation{}, []byte{}
 }

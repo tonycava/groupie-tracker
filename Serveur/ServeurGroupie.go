@@ -32,7 +32,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 
 func Artists(w http.ResponseWriter, r *http.Request) {
 	apiUrl := GetAPI()
-	result, _ := GetData(apiUrl.Artists, "../json/artist.json", "Artist")
+	result, _, _, _, _ := GetData(apiUrl.Artists, "", "Artist")
 
 	tmpl := template.Must(template.ParseFiles("Client/Mainindex.gohtml"))
 	_ = tmpl.Execute(w, result)
