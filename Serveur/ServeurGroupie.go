@@ -54,11 +54,10 @@ func ArtistsId(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := w.Write([]byte(request))
-	if err != nil {
-		return
-	}
+	ResultId := Search(request)
+	fmt.Println(ResultId)
 
-	Search(request)
+	tmpl := template.Must(template.ParseFiles("Client/ArtistsId.gohtml"))
+	_ = tmpl.Execute(w, ResultId)
 
 }
