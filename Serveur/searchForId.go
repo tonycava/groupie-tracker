@@ -1,11 +1,11 @@
 package Serveur
 
 import (
-	"fmt"
+	"groupie-tracker/Struct"
 	"strconv"
 )
 
-func Search(id string) {
+func Search(id string) []Struct.Artist {
 
 	apiUrl := GetAPI()
 	result, _ := GetData(apiUrl.Artists, "../json/artist.json", "Artist")
@@ -14,7 +14,8 @@ func Search(id string) {
 
 	for i := range result {
 		if result[i].Id == idInt {
-			fmt.Println(result[i])
+			return []Struct.Artist{result[i]}
 		}
 	}
+	return []Struct.Artist{}
 }
