@@ -2,7 +2,6 @@ package Serveur
 
 import (
 	"encoding/json"
-	"fmt"
 	"groupie-tracker/Struct"
 	"io/ioutil"
 	"net/http"
@@ -10,10 +9,7 @@ import (
 
 func Main() {
 	apiUrl := GetAPI()
-	fmt.Print(apiUrl)
-
 	GetData(apiUrl)
-
 	GroupieServer()
 }
 

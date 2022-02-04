@@ -15,19 +15,19 @@
         <img src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/50/000000/external-shop-sales-vitaliy-gorbachev-fill-vitaly-gorbachev.png"
              id="shop" alt="Shop SVG"/>
         <span id="Tittle">Groupie-Tracker</span>
-        <label for="Search"></label><input type="text" id="Search" placeholder="Search..">
+        <label for="Search"></label><input type="search" id="Search" placeholder="Search..">
         <button id="SearchButton">?</button>
         <img src="https://img.icons8.com/ios-glyphs/30/000000/shopping-cart--v1.png" id="Cart" alt=""/>
     </div>
 
     <div class="subnavbar">
         <ul>
-            <li class="list"><a href="">Deals</a></li>
-            <li class="list"><a href="">Best Sellers</a></li>
-            <li class="list"><a href="">Basics</a></li>
-            <li class="list"><a href="">PC</a></li>
             <li class="list"><a href="">Home</a></li>
-            <li class="list"><a href="">Buy Again</a></li>
+            <li class="list"><a href="">Home</a></li>
+            <li class="list"><a href="">Credit</a></li>
+            <li class="list"><a href="">Play a Song</a></li>
+            <li class="list"><a href="">The Project</a></li>
+            <li class="list"><a href="">Contact</a></li>
         </ul>
     </div>
 </header>
@@ -35,9 +35,10 @@
 
 <div class="grid">
     {{range $artists := .}}
-        <a href="/artist/{{$artists.Id}}">
-            <img src="{{$artists.Image}}" alt="">
-        </a>
+        <div class="gridchild">
+            <img class="img" src="{{$artists.Image}}" alt="">
+            <a href="/artist/{{$artists.Id}}" class="parentA">See More</a>
+        </div>
     {{end}}
 </div>
 

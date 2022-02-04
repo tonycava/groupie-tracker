@@ -9,11 +9,15 @@
 </head>
 <body>
 
-<div class="grid">
-    <p>{{range $artist := .}}
-            {{$artist}}
+{{range $key, $value := .Data}}
+    {{range $key2, $value2 := $value.DateLocations}}
+        <p>{{$key2}}</p>
+        {{range $key3, $value3 := $value2}}
+            <p>{{$value3}}</p>
         {{end}}
-    </p>
-</div>
+    {{end}}
+{{end}}
+
+
 </body>
 </html>

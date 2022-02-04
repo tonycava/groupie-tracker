@@ -20,11 +20,8 @@ func createPage(rawArtistData []Struct.Artist, location, dates []string, relatio
 }
 
 func Search(id string) []Struct.ArtistPage {
-
 	apiUrl := GetAPI()
-
 	artistList, artistLocation, artistDates, artistRelations, _ := GetData(apiUrl)
-
 	idInt, _ := strconv.Atoi(id)
 	var rawArtistData []Struct.Artist
 	var locations, dates []string
@@ -39,6 +36,5 @@ func Search(id string) []Struct.ArtistPage {
 			return createPage(rawArtistData, locations, dates, relations)
 		}
 	}
-
 	return []Struct.ArtistPage{}
 }

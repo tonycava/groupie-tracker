@@ -2,6 +2,7 @@ package Serveur
 
 import (
 	"fmt"
+	"groupie-tracker/Struct"
 	"html/template"
 	"net/http"
 	"strings"
@@ -57,6 +58,8 @@ func ArtistsId(w http.ResponseWriter, r *http.Request) {
 	ResultId := Search(request)
 	fmt.Println(ResultId)
 	tmpl := template.Must(template.ParseFiles("Client/ArtistsId.gohtml"))
-	_ = tmpl.Execute(w, ResultId)
+	_ = tmpl.Execute(w, struct {
+		Data []Struct.ArtistPage
+	}{Data: ResultId})
 
 }
