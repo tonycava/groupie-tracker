@@ -20,7 +20,7 @@ func GetAllArtistPageData() []Struct.ArtistPage {
 	return allArtistPage
 }
 
-func FilterCreation(allBand []Struct.ArtistPage) {
+func FilterCreation(allBand []Struct.ArtistPage) []Struct.ArtistPage {
 	loop := true
 	for loop {
 		loop = false
@@ -31,9 +31,10 @@ func FilterCreation(allBand []Struct.ArtistPage) {
 			}
 		}
 	}
+	return allBand
 }
 
-func FilterFirstAlbum(allBand []Struct.ArtistPage) {
+func FilterFirstAlbum(allBand []Struct.ArtistPage) []Struct.ArtistPage {
 	var arrayDateInStandardOrder []string
 	for i := 1; i < len(allBand); i++ {
 		dateInStandardOrder := allBand[i].FirstAlbum[6:] + allBand[i].FirstAlbum[3:5] + allBand[i].FirstAlbum[0:2]
@@ -52,9 +53,10 @@ func FilterFirstAlbum(allBand []Struct.ArtistPage) {
 			}
 		}
 	}
+	return allBand
 }
 
-func FilterNumberOfMember(allBand []Struct.ArtistPage) {
+func FilterNumberOfMember(allBand []Struct.ArtistPage) []Struct.ArtistPage {
 	loop := true
 	for loop {
 		loop = false
@@ -65,6 +67,7 @@ func FilterNumberOfMember(allBand []Struct.ArtistPage) {
 			}
 		}
 	}
+	return allBand
 }
 
 func FilterLocation(allBand []Struct.ArtistPage, location string) []Struct.ArtistPage {
