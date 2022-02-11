@@ -1,0 +1,9 @@
+.container {
+    margin-top: 10%;
+    position: relative;
+    display: grid;
+    place-items: center;
+    font-size: 3.5rem;
+    color: white;
+    row-gap: 40px;
+}

@@ -1,0 +1,50 @@
+.img-project {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    left: 50px;
+    top: 50px;
+}
+
+#text-project-1 {
+    position: absolute;
+    font-weight: 400;
+    font-size: 4rem;
+    color: white;
+    margin-top: 100px;
+    margin-left: 375px;
+}
+
+.text-project {
+    background-color: hsla(0 0% 100%, 0.1);
+}
+
+.voirPlus {
+    color: rgb(255, 120, 200);
+    text-decoration: none;
+    font-size: 3.5rem;
+}
+
+
+
+
+.img-project-1 {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    left: 1100px;
+    top: 150px;
+}
+
+#text-project-2 {
+    position: absolute;
+    font-weight: 400;
+    font-size: 4rem;
+    color: white;
+    margin-top: 190px;
+    margin-left: 250px;
+}
+
+.text-project-1 {
+    background-color: hsla(0 0% 100%, 0.1);
+}

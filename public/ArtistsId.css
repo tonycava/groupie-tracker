@@ -1,0 +1,81 @@
+.groupImage {
+    position: relative;
+    width: 22.5%;
+    aspect-ratio: 1;
+    border-radius: 25px;
+    transition: all 1s;
+    top: 100px;
+}
+
+.groupName {
+    color: white;
+    font-size: 3.5rem;
+    text-align: center;
+    font-weight: 700;
+    margin-top: 170px;
+    letter-spacing: 0.05em;
+}
+
+#ImgParent {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.groupImage:hover {
+    transform: scale(1.15);
+}
+
+.groupMembers {
+    margin-top: 100px;
+    gap: 50px;
+    color: white;
+    display: grid;
+    place-items: stretch;
+    justify-items: center;
+    align-items: stretch;
+    grid-template-columns: repeat(2, 1fr);
+    flex-direction: column;
+    font-size: 1.75rem;
+}
+
+.children {
+    grid-row: span 2;
+}
+
+.children2 {
+    transform: translateX(-27px);
+    text-align: left;
+    grid-row: 1;
+    grid-column: 2;
+}
+
+.children3 {
+    grid-row: 2;
+    grid-column: 2;
+}
+
+.relations {
+    flex-direction: column;
+    gap: 35px;
+    margin-top: 140px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.toEspace {
+    flex-direction: column;
+    display: flex;
+    gap: 10px;
+    text-align: left;
+}
