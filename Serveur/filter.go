@@ -1,7 +1,6 @@
 package Serveur
 
 import (
-	"fmt"
 	"groupie-tracker/Struct"
 	"strconv"
 )
@@ -16,7 +15,6 @@ func GetAllArtistPageData() []Struct.ArtistPage {
 		relations := r.Index[i].DatesLocations
 		allArtistPage = append(allArtistPage, createPage(rawArtistData, locations, dates, relations)[0])
 	}
-	fmt.Print(allArtistPage)
 	return allArtistPage
 }
 

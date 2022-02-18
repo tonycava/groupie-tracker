@@ -18,6 +18,15 @@ func searchBarForId(ToSearch string) int {
 	return toRedirect
 }
 
+func contain(tofind string, container []string) bool {
+	for i := range container {
+		if container[i] == tofind {
+			return true
+		}
+	}
+	return false
+}
+
 func ToDisplaySearchBar() {
 	var Container []string
 
@@ -25,14 +34,10 @@ func ToDisplaySearchBar() {
 
 	for i := range Myreturn {
 		for j := range Myreturn[i].Locations {
-			fmt.Println(Myreturn[i].Locations[j])
-
-			for l := range Container {
-				if Container[l] != Myreturn[i].Locations[j] {
-					Container = append(Container, Myreturn[i].Locations[j])
-				}
+			if !contain(Myreturn[i].Locations[j], Container) {
+				Container = append(Container, Myreturn[i].Locations[j])
 			}
 		}
 	}
-	fmt.Println(Container)
+	fmt.Print(Container)
 }
