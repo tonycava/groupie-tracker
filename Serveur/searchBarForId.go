@@ -19,12 +19,20 @@ func searchBarForId(ToSearch string) int {
 }
 
 func ToDisplaySearchBar() {
-	//var Container []string
+	var Container []string
 
 	Myreturn := GetAllArtistPageData()
 
 	for i := range Myreturn {
-		fmt.Println(Myreturn[i].Locations)
+		for j := range Myreturn[i].Locations {
+			fmt.Println(Myreturn[i].Locations[j])
 
+			for l := range Container {
+				if Container[l] != Myreturn[i].Locations[j] {
+					Container = append(Container, Myreturn[i].Locations[j])
+				}
+			}
+		}
 	}
+	fmt.Println(Container)
 }

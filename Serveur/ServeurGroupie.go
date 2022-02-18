@@ -37,7 +37,6 @@ func Home(w http.ResponseWriter, r *http.Request) {
 
 		s2 := strconv.Itoa(toSearch)
 		http.Redirect(w, r, "/artist/"+s2, 303)
-		fmt.Println(toSearch)
 	}
 
 	apiUrl := GetAPI()
@@ -98,7 +97,7 @@ func ArtistsId(w http.ResponseWriter, r *http.Request) {
 	result, Locations, _, _, _ := GetData(apiUrl)
 
 	ResultId := Search(request)
-	fmt.Println(ResultId)
+	//fmt.Println(ResultId)
 	tmpl := template.Must(template.ParseFiles("Client/ArtistsId.gohtml"))
 	_ = tmpl.Execute(w, struct {
 		Data      []Struct.ArtistPage
