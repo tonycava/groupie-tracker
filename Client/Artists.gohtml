@@ -26,7 +26,6 @@
         </form>
 
         <datalist id="wizards-list">
-
             {{range $artists := .ToDisplay}}
                 {{range $key, $value := $artists.Members}}
                     <option value="{{$value}}">Members of the group : {{$artists.Name}}</option>
@@ -38,12 +37,11 @@
                 <option value="{{$value5.FirstAlbum}}">Debut album release date : {{$value5.Name}}</option>
             {{end}}
 
-{{/*            {{range $Loc := .Location.Index}}*/}}
-{{/*                {{range $key10, $value10 := $Loc.Locations}}*/}}
-{{/*                        <option value="{{$value10}}">Location of concert :</option>*/}}
-{{/*                    {{end}}*/}}
-{{/*            {{end}}*/}}
-
+            {{range $Loc := .Location.Index}}
+                {{range $key10, $value10 := $Loc.Locations}}
+                    <option value="{{$value10}}">Location of concert : </option>
+                {{end}}
+            {{end}}
         </datalist>
 
         <img src="https://img.icons8.com/ios-glyphs/30/000000/shopping-cart--v1.png" id="Cart" alt=""/>
@@ -54,7 +52,8 @@
             <li class="list"><a href="/">Home</a></li>
             <li class="list"><a href="/artist">See the Artists</a></li>
             <li class="list"><a href="/credit">Credit</a></li>
-            <li class="list"><a href="#">The Project</a></li>
+            <li class="list"><a href="https://ytrack.learn.ynov.com/intra/toulouse/module-tls/groupie-tracker">The
+                    Project</a></li>
             <li class="list"><a href="#">Contact</a></li>
         </ul>
     </div>
@@ -69,6 +68,9 @@
         </div>
     {{end}}
 </div>
+
+
+
 
 </body>
 </html>

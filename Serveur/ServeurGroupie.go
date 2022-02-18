@@ -5,6 +5,7 @@ import (
 	"groupie-tracker/Struct"
 	"html/template"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -30,18 +31,35 @@ func GroupieServer() {
 }
 
 func Home(w http.ResponseWriter, r *http.Request) {
+	if r.Method == "POST" {
+		inputSearchBar := r.FormValue("wizards")
+		toSearch := searchBarForId(inputSearchBar)
+
+		s2 := strconv.Itoa(toSearch)
+		http.Redirect(w, r, "/artist/"+s2, 303)
+		fmt.Println(toSearch)
+	}
+
+	apiUrl := GetAPI()
+	result, Locations, _, _, _ := GetData(apiUrl)
+	ToDisplaySearchBar()
+
 	tmpl := template.Must(template.ParseFiles("Client/Home.gohtml"))
-	_ = tmpl.Execute(w, nil)
+	_ = tmpl.Execute(w, struct {
+		ToDisplay []Struct.Artist
+		Location  Struct.Locations
+	}{ToDisplay: result, Location: Locations})
 }
 
 func Artists(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "POST" {
 		inputSearchBar := r.FormValue("wizards")
-		fmt.Println(inputSearchBar)
-		//searchBarForId()
-		//toSearch := searchBarForId(inputSearchBar)
-		//fmt.Println(toSearch)
+		toSearch := searchBarForId(inputSearchBar)
+
+		s2 := strconv.Itoa(toSearch)
+		http.Redirect(w, r, "/artist/"+s2, 303)
+		fmt.Println(toSearch)
 	}
 
 	apiUrl := GetAPI()
@@ -52,7 +70,6 @@ func Artists(w http.ResponseWriter, r *http.Request) {
 		ToDisplay []Struct.Artist
 		Location  Struct.Locations
 	}{ToDisplay: result, Location: Locations})
-
 }
 
 func ArtistsId(w http.ResponseWriter, r *http.Request) {
@@ -68,18 +85,49 @@ func ArtistsId(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if r.Method == "POST" {
+		inputSearchBar := r.FormValue("wizards")
+		toSearch := searchBarForId(inputSearchBar)
+
+		s2 := strconv.Itoa(toSearch)
+		http.Redirect(w, r, "/artist/"+s2, 303)
+		fmt.Println(toSearch)
+	}
+
+	apiUrl := GetAPI()
+	result, Locations, _, _, _ := GetData(apiUrl)
+
 	ResultId := Search(request)
 	fmt.Println(ResultId)
 	tmpl := template.Must(template.ParseFiles("Client/ArtistsId.gohtml"))
 	_ = tmpl.Execute(w, struct {
-		Data []Struct.ArtistPage
-	}{Data: ResultId})
+		Data      []Struct.ArtistPage
+		ToDisplay []Struct.Artist
+		Location  Struct.Locations
+	}{Data: ResultId, ToDisplay: result, Location: Locations})
 
 }
 
 func Credit(w http.ResponseWriter, r *http.Request) {
+
+	if r.Method == "POST" {
+		inputSearchBar := r.FormValue("wizards")
+		toSearch := searchBarForId(inputSearchBar)
+
+		s2 := strconv.Itoa(toSearch)
+		http.Redirect(w, r, "/artist/"+s2, 303)
+		fmt.Println(toSearch)
+	}
+
+	apiUrl := GetAPI()
+	result, Locations, _, _, _ := GetData(apiUrl)
+
 	tmpl := template.Must(template.ParseFiles("Client/Credit.gohtml"))
-	_ = tmpl.Execute(w, nil)
+	_ = tmpl.Execute(w, struct {
+		ToDisplay []Struct.Artist
+		Location  Struct.Locations
+	}{ToDisplay: result, Location: Locations})
+
 }
 
 func FavIcon(w http.ResponseWriter, r *http.Request) { //get icon for the site
