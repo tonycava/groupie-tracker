@@ -66,18 +66,11 @@ func Artists(w http.ResponseWriter, r *http.Request) {
 		inputMembers5 := r.FormValue("5")
 		inputMembers6 := r.FormValue("6")
 
-		fmt.Println(inputSearchBar)
-		fmt.Println(inputRange)
-
-		fmt.Println(inputMembers1)
-		fmt.Println(inputMembers2)
-		fmt.Println(inputMembers3)
-		fmt.Println(inputMembers4)
-		fmt.Println(inputMembers5)
-		fmt.Println(inputMembers6)
-
-		useformatis := inArray(inputSearchBar, inputRange, inputMembers1, inputMembers2, inputMembers3, inputMembers4, inputMembers5, inputMembers6)
-		fmt.Println(useformatis)
+		inArray(inputSearchBar, inputRange, inputMembers1, inputMembers2, inputMembers3, inputMembers4, inputMembers5, inputMembers6)
+		allband := Filter(inArray(inputSearchBar, inputRange, inputMembers1, inputMembers2, inputMembers3, inputMembers4, inputMembers5, inputMembers6))
+		for i := range allband {
+			fmt.Println(allband[i].Name)
+		}
 
 	}
 
