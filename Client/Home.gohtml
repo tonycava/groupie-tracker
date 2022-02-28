@@ -10,17 +10,65 @@
     <title>Home Page</title>
 </head>
 <body>
+
 <header>
     <div class="navbar-fixed">
-        <img src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/50/000000/external-shop-sales-vitaliy-gorbachev-fill-vitaly-gorbachev.png"
-             id="shop" alt="Shop SVG"/>
         <span id="Tittle">Groupie-Tracker</span>
 
         <form method="POST" id="form">
             <label for="Search"></label><input type="search" id="Search" name="wizards" list="wizards-list"
                                                placeholder="Search on the website" autocomplete="off" autofocus>
 
-            <input type="submit" id="SearchButton" value="?">
+            {{/*            <input type="submit" id="SearchButton" value="?">*/}}
+
+            <div class="toWrap">
+                <p id="CarrierYears">Carrier Starting Years</p>
+                <label>
+                    <input type="range" placeholder="Choose MIN Creation-Date" class="TextPad" id="r" min="1900"
+                           max="2022" value="1999">
+                </label>
+                <p id="CarrierYears2">1999</p>
+            </div>
+            <p id="nMembers">N° Members : </p>
+
+            <div class="toWrap2">
+
+                <label>
+                    1
+                    <input type="checkbox" class="lol">
+                </label>
+
+                <label>
+                    2
+                    <input type="checkbox">
+                </label>
+
+                <label>
+                    3
+                    <input type="checkbox">
+                </label>
+
+                <label>
+                    4
+                    <input type="checkbox">
+                </label>
+
+                <label>
+                    5
+                    <input type="checkbox">
+                </label>
+
+                <label>
+                    6
+                    <input type="checkbox">
+                </label>
+
+            </div>
+
+            <div id="ParentCredit">
+                <input type="submit" id="InputCredit" value="Submit Change">
+            </div>
+
         </form>
 
         <datalist id="wizards-list">
@@ -36,15 +84,12 @@
                 <option value="{{$value5.FirstAlbum}}">Debut album release date : {{$value5.Name}}</option>
             {{end}}
 
-{{/*            {{range $Loc := .Location.Index}}*/}}
-{{/*                {{range $key10, $value10 := $Loc.Locations}}*/}}
-{{/*                    <option value="{{$value10}}">Location of concert :</option>*/}}
-{{/*                {{end}}*/}}
-{{/*            {{end}}*/}}
+            {{/*            {{range  $test := .Arralocation}}*/}}
+            {{/*                <option value="{{$test}}"></option>*/}}
+            {{/*            {{end}}*/}}
 
         </datalist>
 
-        <img src="https://img.icons8.com/ios-glyphs/30/000000/shopping-cart--v1.png" id="Cart" alt=""/>
     </div>
 
     <div class="subnavbar">
@@ -52,7 +97,8 @@
             <li class="list"><a href="/">Home</a></li>
             <li class="list"><a href="/artist">See the Artists</a></li>
             <li class="list"><a href="/credit">Credit</a></li>
-            <li class="list"><a href="https://ytrack.learn.ynov.com/intra/toulouse/module-tls/groupie-tracker">The Project</a></li>
+            <li class="list"><a href="https://ytrack.learn.ynov.com/intra/toulouse/module-tls/groupie-tracker">The
+                    Project</a></li>
             <li class="list"><a href="#">Contact</a></li>
         </ul>
     </div>

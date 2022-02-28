@@ -1,9 +1,5 @@
 package Serveur
 
-import (
-	"fmt"
-)
-
 func searchBarForId(ToSearch string) int {
 	var toRedirect int
 	apiUrl := GetAPI()
@@ -27,7 +23,7 @@ func contain(tofind string, container []string) bool {
 	return false
 }
 
-func ToDisplaySearchBar() {
+func ToDisplaySearchBar() []string {
 	var Container []string
 
 	Myreturn := GetAllArtistPageData()
@@ -39,5 +35,5 @@ func ToDisplaySearchBar() {
 			}
 		}
 	}
-	fmt.Print(Container)
+	return Container
 }

@@ -13,19 +13,66 @@
 
 <header>
     <div class="navbar-fixed">
-        <img src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/50/000000/external-shop-sales-vitaliy-gorbachev-fill-vitaly-gorbachev.png"
-             id="shop" alt="Shop SVG"/>
         <span id="Tittle">Groupie-Tracker</span>
-
 
         <form method="POST" id="form">
             <label for="Search"></label><input type="search" id="Search" name="wizards" list="wizards-list"
                                                placeholder="Search on the website" autocomplete="off" autofocus>
 
-            <input type="submit" id="SearchButton" value="?">
+            {{/*            <input type="submit" id="SearchButton" value="?">*/}}
+
+            <div class="toWrap">
+                <p id="CarrierYears">Carrier Starting Years</p>
+                <label>
+                    <input type="range" placeholder="Choose MIN Creation-Date" class="TextPad" id="r" min="1900"
+                           max="2022" value="1999" name="range">
+                </label>
+                <p id="CarrierYears2">1999</p>
+            </div>
+            <p id="nMembers">N° Members : </p>
+
+            <div class="toWrap2">
+
+                <label>
+                    1
+                    <input type="checkbox" id="1" name="1" value="false">
+                </label>
+
+                <label>
+                    2
+                    <input type="checkbox" id="2" name="2" value="false">
+                </label>
+
+                <label>
+                    3
+                    <input type="checkbox" id="3" name="3" value="false">
+                </label>
+
+                <label>
+                    4
+                    <input type="checkbox" id="4" name="4" value="false">
+                </label>
+
+                <label>
+                    5
+                    <input type="checkbox" id="5" name="5" value="false">
+                </label>
+
+                <label>
+                    6
+                    <input type="checkbox" id="6" name="6" value="false">
+                </label>
+
+            </div>
+
+            <div id="ParentCredit">
+                <input type="submit" id="InputCredit" value="Submit Change">
+            </div>
+
         </form>
 
         <datalist id="wizards-list">
+
             {{range $artists := .ToDisplay}}
                 {{range $key, $value := $artists.Members}}
                     <option value="{{$value}}">Members of the group : {{$artists.Name}}</option>
@@ -37,14 +84,12 @@
                 <option value="{{$value5.FirstAlbum}}">Debut album release date : {{$value5.Name}}</option>
             {{end}}
 
-            {{range $Loc := .Location.Index}}
-                {{range $key10, $value10 := $Loc.Locations}}
-                    <option value="{{$value10}}">Location of concert : </option>
-                {{end}}
-            {{end}}
+            {{/*            {{range  $test := .Arralocation}}*/}}
+            {{/*                <option value="{{$test}}"></option>*/}}
+            {{/*            {{end}}*/}}
+
         </datalist>
 
-        <img src="https://img.icons8.com/ios-glyphs/30/000000/shopping-cart--v1.png" id="Cart" alt=""/>
     </div>
 
     <div class="subnavbar">
@@ -70,7 +115,6 @@
 </div>
 
 
-
-
+<script src="script/artists.js"></script>
 </body>
 </html>

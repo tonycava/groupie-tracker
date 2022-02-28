@@ -51,3 +51,7 @@ type Relation struct {
 		DatesLocations map[string][]string `json:"datesLocations"`
 	} `json:"index"`
 }
+
+type Test struct {
+	test2 string
+}

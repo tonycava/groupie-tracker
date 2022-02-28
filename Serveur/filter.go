@@ -79,3 +79,17 @@ func FilterLocation(allBand []Struct.ArtistPage, location string) []Struct.Artis
 	}
 	return allBandFilteredWithLocation
 }
+
+func inArray(inputSearchbar string, inputRange string, inputMembers1 string, inputMembers2 string, inputMembers3 string, inputMembers4 string, inputMembers5 string, inputMembers6 string) []string {
+
+	return []string{
+		inputSearchbar,
+		inputRange,
+		inputMembers1,
+		inputMembers2,
+		inputMembers3,
+		inputMembers4,
+		inputMembers5,
+		inputMembers6,
+	}
+}

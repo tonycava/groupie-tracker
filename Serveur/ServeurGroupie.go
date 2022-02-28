@@ -17,11 +17,13 @@ func GroupieServer() {
 	server.HandleFunc("/credit", Credit)
 	server.HandleFunc("/artist", Artists)
 	server.HandleFunc("/artist/", ArtistsId)
+
 	server.HandleFunc("/favicon.ico", FavIcon)
 
 	// or use strings.Split, or use regexp, etc.
 
 	server.Handle("/public/", http.StripPrefix("/public/", http.FileServer(http.Dir("./public"))))
+	server.Handle("/script/", http.StripPrefix("/script/", http.FileServer(http.Dir("./script"))))
 	// listen to the port 8000
 	fmt.Println("server listening on http://localhost:8080/artist")
 	err := http.ListenAndServe(":8080", server)
@@ -37,6 +39,7 @@ func Home(w http.ResponseWriter, r *http.Request) {
 
 		s2 := strconv.Itoa(toSearch)
 		http.Redirect(w, r, "/artist/"+s2, 303)
+
 	}
 
 	apiUrl := GetAPI()
@@ -54,21 +57,40 @@ func Artists(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "POST" {
 		inputSearchBar := r.FormValue("wizards")
-		toSearch := searchBarForId(inputSearchBar)
+		inputRange := r.FormValue("range")
 
-		s2 := strconv.Itoa(toSearch)
-		http.Redirect(w, r, "/artist/"+s2, 303)
-		fmt.Println(toSearch)
+		inputMembers1 := r.FormValue("1")
+		inputMembers2 := r.FormValue("2")
+		inputMembers3 := r.FormValue("3")
+		inputMembers4 := r.FormValue("4")
+		inputMembers5 := r.FormValue("5")
+		inputMembers6 := r.FormValue("6")
+
+		fmt.Println(inputSearchBar)
+		fmt.Println(inputRange)
+
+		fmt.Println(inputMembers1)
+		fmt.Println(inputMembers2)
+		fmt.Println(inputMembers3)
+		fmt.Println(inputMembers4)
+		fmt.Println(inputMembers5)
+		fmt.Println(inputMembers6)
+
+		useformatis := inArray(inputSearchBar, inputRange, inputMembers1, inputMembers2, inputMembers3, inputMembers4, inputMembers5, inputMembers6)
+		fmt.Println(useformatis)
+
 	}
 
 	apiUrl := GetAPI()
 	result, Locations, _, _, _ := GetData(apiUrl)
+	ArrayLocation := ToDisplaySearchBar()
 
 	tmpl := template.Must(template.ParseFiles("Client/Artists.gohtml"))
 	_ = tmpl.Execute(w, struct {
-		ToDisplay []Struct.Artist
-		Location  Struct.Locations
-	}{ToDisplay: result, Location: Locations})
+		Arralocation []string
+		ToDisplay    []Struct.Artist
+		Location     Struct.Locations
+	}{ToDisplay: result, Location: Locations, Arralocation: ArrayLocation})
 }
 
 func ArtistsId(w http.ResponseWriter, r *http.Request) {
