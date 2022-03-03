@@ -67,44 +67,50 @@ func FilterNumberOfMember(allBand []Struct.ArtistPage, search []string) []Struct
 				N1 = append(N1, allBand[i])
 			}
 		}
-	} else if search[3] != "" {
+	}
+	if search[3] != "" {
 		for i := 0; i < len(allBand); i++ {
 			if len(allBand[i].Members) == 2 {
 				N2 = append(N2, allBand[i])
 			}
 		}
-	} else if search[4] != "" {
+	}
+	if search[4] != "" {
 		for i := 0; i < len(allBand); i++ {
 			if len(allBand[i].Members) == 3 {
 				N3 = append(N3, allBand[i])
 			}
 		}
-	} else if search[5] != "" {
+	}
+	if search[5] != "" {
 		for i := 0; i < len(allBand); i++ {
 			if len(allBand[i].Members) == 4 {
 				N4 = append(N4, allBand[i])
 			}
 		}
-	} else if search[6] != "" {
+	}
+	if search[6] != "" {
 		for i := 0; i < len(allBand); i++ {
 			if len(allBand[i].Members) == 5 {
 				N5 = append(N5, allBand[i])
 			}
 		}
-	} else if search[7] != "" {
+	}
+	if search[7] != "" {
 		for i := 0; i < len(allBand); i++ {
 			if len(allBand[i].Members) == 6 {
 				N6 = append(N6, allBand[i])
 			}
 		}
-	} else {
-		return allBand
 	}
 	N1 = append(N1, N2...)
 	N1 = append(N1, N3...)
 	N1 = append(N1, N4...)
 	N1 = append(N1, N5...)
 	N1 = append(N1, N6...)
+	if N1 == nil {
+		return allBand
+	}
 	return N1
 }
 
