@@ -1,10 +1,18 @@
 let range = document.getElementById('r')
 let p = document.getElementById('CarrierYears2')
 
-range.onchange = function () {
-    console.log(range)
-    p.textContent = "" + range.value
+p.textContent = range.value
+
+range.oninput = function () {
+    p.innerHTML = "" + this.value
 }
+
+range.addEventListener("mousemove", function () {
+    let x = range.value
+
+})
+
+
 
 let check1 = document.getElementById("1")
 let check2 = document.getElementById("2")

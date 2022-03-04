@@ -54,8 +54,10 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 func Artists(w http.ResponseWriter, r *http.Request) {
+	display := true
 
 	if r.Method == "POST" {
+		display = false
 		inputSearchBar := r.FormValue("wizards")
 		inputRange := r.FormValue("range")
 
@@ -67,23 +69,33 @@ func Artists(w http.ResponseWriter, r *http.Request) {
 		inputMembers6 := r.FormValue("6")
 
 		inArray(inputSearchBar, inputRange, inputMembers1, inputMembers2, inputMembers3, inputMembers4, inputMembers5, inputMembers6)
+
 		allband := Filter(inArray(inputSearchBar, inputRange, inputMembers1, inputMembers2, inputMembers3, inputMembers4, inputMembers5, inputMembers6))
 		for i := range allband {
 			fmt.Println(allband[i].Name)
 		}
 
+		ArrayLocation := ToDisplaySearchBar()
+
+		tmpl := template.Must(template.ParseFiles("Client/Artists.gohtml"))
+		_ = tmpl.Execute(w, struct {
+			Arralocation []string
+			ToDisplay    []Struct.ArtistPage
+		}{ToDisplay: allband, Arralocation: ArrayLocation})
 	}
 
-	apiUrl := GetAPI()
-	result, Locations, _, _, _ := GetData(apiUrl)
-	ArrayLocation := ToDisplaySearchBar()
+	if display == true {
+		apiUrl := GetAPI()
+		result, _, _, _, _ := GetData(apiUrl)
+		ArrayLocation := ToDisplaySearchBar()
 
-	tmpl := template.Must(template.ParseFiles("Client/Artists.gohtml"))
-	_ = tmpl.Execute(w, struct {
-		Arralocation []string
-		ToDisplay    []Struct.Artist
-		Location     Struct.Locations
-	}{ToDisplay: result, Location: Locations, Arralocation: ArrayLocation})
+		tmpl := template.Must(template.ParseFiles("Client/Artists.gohtml"))
+		_ = tmpl.Execute(w, struct {
+			Arralocation []string
+			ToDisplay    []Struct.Artist
+		}{ToDisplay: result, Arralocation: ArrayLocation})
+	}
+	display = true
 }
 
 func ArtistsId(w http.ResponseWriter, r *http.Request) {
@@ -99,27 +111,20 @@ func ArtistsId(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if r.Method == "POST" {
-		inputSearchBar := r.FormValue("wizards")
-		toSearch := searchBarForId(inputSearchBar)
-
-		s2 := strconv.Itoa(toSearch)
-		http.Redirect(w, r, "/artist/"+s2, 303)
-		fmt.Println(toSearch)
-	}
+	ArrayLocation := ToDisplaySearchBar()
 
 	apiUrl := GetAPI()
 	result, Locations, _, _, _ := GetData(apiUrl)
 
 	ResultId := Search(request)
-	//fmt.Println(ResultId)
+	fmt.Println(ResultId)
 	tmpl := template.Must(template.ParseFiles("Client/ArtistsId.gohtml"))
 	_ = tmpl.Execute(w, struct {
-		Data      []Struct.ArtistPage
-		ToDisplay []Struct.Artist
-		Location  Struct.Locations
-	}{Data: ResultId, ToDisplay: result, Location: Locations})
-
+		Arralocation []string
+		Data         []Struct.ArtistPage
+		ToDisplay    []Struct.Artist
+		Location     Struct.Locations
+	}{Data: ResultId, ToDisplay: result, Location: Locations, Arralocation: ArrayLocation})
 }
 
 func Credit(w http.ResponseWriter, r *http.Request) {

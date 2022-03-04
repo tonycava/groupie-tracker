@@ -18,15 +18,14 @@
             <label for="Search"></label><input type="search" id="Search" name="wizards" list="wizards-list"
                                                placeholder="Search on the website" autocomplete="off" autofocus>
 
-            {{/*            <input type="submit" id="SearchButton" value="?">*/}}
 
             <div class="toWrap">
                 <p id="CarrierYears">Carrier Starting Years</p>
                 <label>
                     <input type="range" placeholder="Choose MIN Creation-Date" class="TextPad" id="r" min="1900"
-                           max="2022" value="1999">
+                           max="2022" value="1999" name="range">
                 </label>
-                <p id="CarrierYears2">1999</p>
+                <p id="CarrierYears2"></p>
             </div>
             <p id="nMembers">N° Members : </p>
 
@@ -34,32 +33,32 @@
 
                 <label>
                     1
-                    <input type="checkbox" class="lol">
+                    <input type="checkbox" id="1" name="1" value="false">
                 </label>
 
                 <label>
                     2
-                    <input type="checkbox">
+                    <input type="checkbox" id="2" name="2" value="false">
                 </label>
 
                 <label>
                     3
-                    <input type="checkbox">
+                    <input type="checkbox" id="3" name="3" value="false">
                 </label>
 
                 <label>
                     4
-                    <input type="checkbox">
+                    <input type="checkbox" id="4" name="4" value="false">
                 </label>
 
                 <label>
                     5
-                    <input type="checkbox">
+                    <input type="checkbox" id="5" name="5" value="false">
                 </label>
 
                 <label>
                     6
-                    <input type="checkbox">
+                    <input type="checkbox" id="6" name="6" value="false">
                 </label>
 
             </div>
@@ -83,10 +82,13 @@
                 <option value="{{$value5.FirstAlbum}}">Debut album release date : {{$value5.Name}}</option>
             {{end}}
 
-            {{/*            {{range  $test := .Arralocation}}*/}}
-            {{/*                <option value="{{$test}}"></option>*/}}
-            {{/*            {{end}}*/}}
+            {{range  $ArraLocation := .Arralocation}}
+                <option value="{{$ArraLocation}}">Location of concert</option>
+            {{end}}
 
+            {{range $value := .ToDisplay}}
+                <option value="{{$value.Name}}">Name of an Artist</option>
+            {{end}}
         </datalist>
 
     </div>
