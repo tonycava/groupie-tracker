@@ -26,37 +26,34 @@ func GetAllArtistPageData() []Struct.ArtistPage {
 	return allArtistPage
 }
 
-func FilterCreation(allBand []Struct.ArtistPage, search []string) []Struct.ArtistPage {
+func FilterCreation(allband []Struct.ArtistPage, search []string) []Struct.ArtistPage {
 	var output []Struct.ArtistPage
-	for i := 0; i < len(allBand); i++ {
+	for i := 0; i < len(allband); i++ {
 		date, _ := strconv.Atoi(search[1])
-		if allBand[i].CreationDate > date {
-			output = append(output, allBand[i])
+		if allband[i].CreationDate > date {
+			output = append(output, allband[i])
 		}
+	}
+	if output == nil {
+		return allband
 	}
 	return output
 }
 
-func FilterFirstAlbum(allBand []Struct.ArtistPage) []Struct.ArtistPage {
-	var arrayDateInStandardOrder []string
-	for i := 1; i < len(allBand); i++ {
-		dateInStandardOrder := allBand[i].FirstAlbum[6:] + allBand[i].FirstAlbum[3:5] + allBand[i].FirstAlbum[0:2]
-		arrayDateInStandardOrder = append(arrayDateInStandardOrder, dateInStandardOrder)
+func FilterFirstAlbum(allband []Struct.ArtistPage, search []string) []Struct.ArtistPage {
+	if search[0] == "" {
+		return allband
 	}
-	loop := true
-	for loop {
-		loop = false
-		for i := 1; i < len(arrayDateInStandardOrder); i++ {
-			a, _ := strconv.Atoi(arrayDateInStandardOrder[i-1])
-			b, _ := strconv.Atoi(arrayDateInStandardOrder[i])
-			if a > b {
-				allBand[i-1], allBand[i] = allBand[i], allBand[i-1]
-				arrayDateInStandardOrder[i-1], arrayDateInStandardOrder[i] = arrayDateInStandardOrder[i], arrayDateInStandardOrder[i-1]
-				loop = true
-			}
+	var output []Struct.ArtistPage
+	for i := 0; i < len(allband); i++ {
+		if allband[i].FirstAlbum == search[0] {
+			output = append(output, allband[i])
 		}
 	}
-	return allBand
+	if output == nil {
+		return allband
+	}
+	return output
 }
 
 func FilterNumberOfMember(allBand []Struct.ArtistPage, search []string) []Struct.ArtistPage {
@@ -150,10 +147,28 @@ func FilterNameOfMember(allband []Struct.ArtistPage, search []string) []Struct.A
 	return output
 }
 
+func FilterByDate(allband []Struct.ArtistPage, search []string) []Struct.ArtistPage {
+	if search[0] == "" {
+		return allband
+	}
+	var output []Struct.ArtistPage
+	for i := 0; i < len(allband); i++ {
+		for j := 0; j < len(allband[i].Dates); j++ {
+			if allband[i].Dates[j] == search[0] {
+				output = append(output, allband[i])
+			}
+		}
+	}
+	if output == nil {
+		return allband
+	}
+	return output
+}
+
 func Filter(search []string) []Struct.ArtistPage {
 	allband := GetAllArtistPageData()
 
-	return FilterLocation(FilterFirstAlbum(FilterNumberOfMember(FilterCreation(FilterNameOfMember(allband, search), search), search)), search)
+	return FilterByDate(FilterLocation(FilterFirstAlbum(FilterNumberOfMember(FilterCreation(FilterNameOfMember(allband, search), search), search), search), search), search)
 }
 
 func inArray(inputSearchbar string, inputRange string, inputMembers1 string, inputMembers2 string, inputMembers3 string, inputMembers4 string, inputMembers5 string, inputMembers6 string) []string {
