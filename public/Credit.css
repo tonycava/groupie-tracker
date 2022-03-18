@@ -1,3 +1,7 @@
+html{
+    padding-bottom: 0;
+}
+
 .container {
     margin-top: 10%;
     position: relative;
@@ -6,4 +10,12 @@
     font-size: 3.5rem;
     color: white;
     row-gap: 40px;
+}
+
+#Anthony {
+    text-align: center;
+}
+
+#Matis {
+    text-align: center;
 }

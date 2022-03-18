@@ -7,20 +7,67 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="public/Credit.css">
     <link rel="stylesheet" href="public/Base.css">
+    <script src="../script/artists.js" defer></script>
     <title>Home Page</title>
 </head>
 <body>
 <header>
     <div class="navbar-fixed">
-        <img src="https://img.icons8.com/external-vitaliy-gorbachev-fill-vitaly-gorbachev/50/000000/external-shop-sales-vitaliy-gorbachev-fill-vitaly-gorbachev.png"
-             id="shop" alt="Shop SVG"/>
         <span id="Tittle">Groupie-Tracker</span>
 
         <form method="POST" id="form">
             <label for="Search"></label><input type="search" id="Search" name="wizards" list="wizards-list"
                                                placeholder="Search on the website" autocomplete="off" autofocus>
 
-            <input type="submit" id="SearchButton" value="?">
+
+            <div class="toWrap">
+                <p id="CarrierYears">Carrier Starting Years</p>
+                <label>
+                    <input type="range" placeholder="Choose MIN Creation-Date" class="TextPad" id="r" min="1900"
+                           max="2022" value="1999" name="range">
+                </label>
+                <p id="CarrierYears2"></p>
+            </div>
+            <p id="nMembers">N° Members : </p>
+
+            <div class="toWrap2">
+
+                <label>
+                    1
+                    <input type="checkbox" id="1" name="1" value="false">
+                </label>
+
+                <label>
+                    2
+                    <input type="checkbox" id="2" name="2" value="false">
+                </label>
+
+                <label>
+                    3
+                    <input type="checkbox" id="3" name="3" value="false">
+                </label>
+
+                <label>
+                    4
+                    <input type="checkbox" id="4" name="4" value="false">
+                </label>
+
+                <label>
+                    5
+                    <input type="checkbox" id="5" name="5" value="false">
+                </label>
+
+                <label>
+                    6
+                    <input type="checkbox" id="6" name="6" value="false">
+                </label>
+
+            </div>
+
+            <div id="ParentCredit">
+                <input type="submit" id="InputCredit" value="Submit Change">
+            </div>
+
         </form>
 
         <datalist id="wizards-list">
@@ -32,19 +79,18 @@
             {{end}}
 
             {{range $key5, $value5 := .ToDisplay}}
-                <option value="{{$value5.CreationDate}}">Group creation date : {{$value5.Name}}</option>
                 <option value="{{$value5.FirstAlbum}}">Debut album release date : {{$value5.Name}}</option>
             {{end}}
 
-{{/*            {{range $Loc := .Location.Index}}*/}}
-{{/*                {{range $key10, $value10 := $Loc.Locations}}*/}}
-{{/*                    <option value="{{$value10}}">Location of concert :</option>*/}}
-{{/*                {{end}}*/}}
-{{/*            {{end}}*/}}
+            {{range  $ArraLocation := .Arralocation}}
+                <option value="{{$ArraLocation}}">Location of concert</option>
+            {{end}}
 
+            {{range $value := .ToDisplay}}
+                <option value="{{$value.Name}}">Name of an Artist</option>
+            {{end}}
         </datalist>
 
-        <img src="https://img.icons8.com/ios-glyphs/30/000000/shopping-cart--v1.png" id="Cart" alt=""/>
     </div>
 
     <div class="subnavbar">
@@ -52,8 +98,8 @@
             <li class="list"><a href="/">Home</a></li>
             <li class="list"><a href="/artist">See the Artists</a></li>
             <li class="list"><a href="/credit">Credit</a></li>
-            <li class="list"><a href="https://ytrack.learn.ynov.com/intra/toulouse/module-tls/groupie-tracker">The Project</a></li>
-            <li class="list"><a href="#">Contact</a></li>
+            <li class="list"><a href="https://ytrack.learn.ynov.com/intra/toulouse/module-tls/groupie-tracker">The
+                    Project</a></li>
         </ul>
     </div>
 </header>

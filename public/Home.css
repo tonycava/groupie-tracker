@@ -1,3 +1,7 @@
+body {
+    padding-bottom: 1000px;
+}
+
 .img-project {
     position: relative;
     width: 300px;
@@ -25,9 +29,6 @@
     font-size: 3.5rem;
 }
 
-
-
-
 .img-project-1 {
     position: relative;
     width: 300px;
@@ -47,4 +48,31 @@
 
 .text-project-1 {
     background-color: hsla(0 0% 100%, 0.1);
+}
+
+.img-project-3 {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    left: 50px;
+    top: 280px;
+    margin-bottom: 100px;
+}
+
+#text-project-2 {
+    position: absolute;
+    font-weight: 400;
+    font-size: 4rem;
+    color: white;
+    margin-top: 210px;
+    margin-left: 330px;
+}
+
+#text-project-3 {
+    position: absolute;
+    font-weight: 400;
+    font-size: 4rem;
+    color: white;
+    margin-top: 365px;
+    margin-left: 420px;
 }
