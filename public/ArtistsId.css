@@ -79,3 +79,25 @@
     gap: 10px;
     text-align: left;
 }
+
+a, a:visited {
+    color: white;
+    transition: all 1s ease-out;
+}
+a:hover {
+    color: #5757ef;
+    transition: all 1s ease-out;
+}
+
+i {
+    color: red;
+}
+
+#container-video {
+    margin: 50px 10% 0 10%;
+    width: 80%;
+}
+
+#container-video iframe {
+    width: 100%;
+}

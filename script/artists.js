@@ -12,8 +12,6 @@ range.addEventListener("mousemove", function () {
 
 })
 
-
-
 let check1 = document.getElementById("1")
 let check2 = document.getElementById("2")
 let check3 = document.getElementById("3")

@@ -5,7 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
     <link rel="stylesheet" href="public/Artists.css">
+    <script src="script/artists.js" defer></script>
     <link rel="stylesheet" href="public/Base.css">
     <title>Artists Page</title>
 </head>
@@ -72,14 +74,13 @@
 
         <datalist id="wizards-list">
 
-            {{range $artists := .ToDisplay}}
+            {{range $artists := .InSearch}}
                 {{range $key, $value := $artists.Members}}
                     <option value="{{$value}}">Members of the group : {{$artists.Name}}</option>
                 {{end}}
             {{end}}
 
-            {{range $key5, $value5 := .ToDisplay}}
-                <option value="{{$value5.CreationDate}}">Group creation date : {{$value5.Name}}</option>
+            {{range $key5, $value5 := .InSearch}}
                 <option value="{{$value5.FirstAlbum}}">Debut album release date : {{$value5.Name}}</option>
             {{end}}
 
@@ -87,7 +88,7 @@
                 <option value="{{$ArraLocation}}">Location of concert</option>
             {{end}}
 
-            {{range $value := .ToDisplay}}
+            {{range $value := .InSearch}}
                 <option value="{{$value.Name}}">Name of an Artist</option>
             {{end}}
         </datalist>
@@ -101,11 +102,9 @@
             <li class="list"><a href="/credit">Credit</a></li>
             <li class="list"><a href="https://ytrack.learn.ynov.com/intra/toulouse/module-tls/groupie-tracker">The
                     Project</a></li>
-            <li class="list"><a href="#">Contact</a></li>
         </ul>
     </div>
 </header>
-
 
 <div class="grid">
     {{range $artists := .ToDisplay}}
@@ -116,7 +115,5 @@
     {{end}}
 </div>
 
-
-<script src="script/artists.js"></script>
 </body>
 </html>

@@ -129,6 +129,22 @@ func FilterLocation(allBand []Struct.ArtistPage, search []string) []Struct.Artis
 	return allBandFilteredWithLocation
 }
 
+func FilterByName(allBand []Struct.ArtistPage, search []string) []Struct.ArtistPage {
+	if search[0] == "" {
+		return allBand
+	}
+	var allBandFilteredWithLocation []Struct.ArtistPage
+	for i := 0; i < len(allBand); i++ {
+		if strings.Contains(allBand[i].Name, search[0]) {
+			allBandFilteredWithLocation = append(allBandFilteredWithLocation, allBand[i])
+		}
+	}
+	if allBandFilteredWithLocation == nil {
+		return allBand
+	}
+	return allBandFilteredWithLocation
+}
+
 func FilterNameOfMember(allband []Struct.ArtistPage, search []string) []Struct.ArtistPage {
 	if search[0] == "" {
 		return allband
@@ -168,7 +184,7 @@ func FilterByDate(allband []Struct.ArtistPage, search []string) []Struct.ArtistP
 func Filter(search []string) []Struct.ArtistPage {
 	allband := GetAllArtistPageData()
 
-	return FilterByDate(FilterLocation(FilterFirstAlbum(FilterNumberOfMember(FilterCreation(FilterNameOfMember(allband, search), search), search), search), search), search)
+	return FilterByName(FilterByDate(FilterLocation(FilterFirstAlbum(FilterNumberOfMember(FilterCreation(FilterNameOfMember(allband, search), search), search), search), search), search), search)
 }
 
 func inArray(inputSearchbar string, inputRange string, inputMembers1 string, inputMembers2 string, inputMembers3 string, inputMembers4 string, inputMembers5 string, inputMembers6 string) []string {

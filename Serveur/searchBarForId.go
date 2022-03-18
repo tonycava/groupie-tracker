@@ -1,19 +1,5 @@
 package Serveur
 
-func searchBarForId(ToSearch string) int {
-	var toRedirect int
-	apiUrl := GetAPI()
-	artistList, _, _, _, _ := GetData(apiUrl)
-	for i := range artistList {
-		for j := range artistList[i].Members {
-			if artistList[i].Members[j] == ToSearch || artistList[i].FirstAlbum == ToSearch {
-				toRedirect = artistList[i].Id
-			}
-		}
-	}
-	return toRedirect
-}
-
 func contain(tofind string, container []string) bool {
 	for i := range container {
 		if container[i] == tofind {
