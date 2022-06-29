@@ -9,7 +9,6 @@ range.oninput = function () {
 
 range.addEventListener("mousemove", function () {
     let x = range.value
-
 })
 
 let check1 = document.getElementById("1")
